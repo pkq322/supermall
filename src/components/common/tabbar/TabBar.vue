@@ -12,6 +12,7 @@ export default {
 
 <style>
 #tabbar{
+  /* height: 49px; */
   display: flex;
   background-color: #f6f6f6;
   position: fixed;

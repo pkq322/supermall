@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <main-tab-bar></main-tab-bar>
+    <Main-tab-bar></Main-tab-bar>
   </div>
 </template>
 <script>
-import MainTabBar from 'components/content/MainTabBar'
+import MainTabBar from 'components/content/mainTabBar/MainTabBar'
 export default {
   name:'App',
   components:{
@@ -14,5 +14,5 @@ export default {
 }
 </script>
 <style>
-  @import 'assets/css/base.css'
+  @import 'assets/css/base.css';
 </style>
