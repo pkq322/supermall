@@ -1,27 +1,25 @@
 <template>
   <div id="home">
-    <nav-bar class="nav_bg">
-      <div slot="center">购物街</div>
-    </nav-bar>
-    <swiper>
-      <van-swipe-item v-for="(item,index) in banners" :key="index">
-        <a :href="item.link">
-          <img :src="item.image"/>
-        </a>
-      </van-swipe-item>
-    </swiper>
+    <nav-bar class="nav_bg"><div slot="center">购物街</div></nav-bar>
+    <home-swiper :banners='banners'/>
+    <recommend-view :recommends='recommends'/>
+    <featureView/>
   </div>
 </template> 
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
-import Swiper from "components/common/swiper/Swiper";
+import homeSwiper from 'views/Home/childComps/homeSwiper';
+import recommendView from './childComps/recommendView';
+import featureView from './childComps/featureView'
 import { getHomeMultidata } from "network/home";
 export default {
   name: "Home",
   components: {
     NavBar,
-    Swiper
+    homeSwiper,
+    recommendView,
+    featureView
   },
   data() {
     return {
@@ -43,11 +41,14 @@ export default {
 </script>
 
 <style>
+#home{
+  padding-top: 44px;
+}
 .nav_bg {
   background-color: var(--color-tint);
   color: #fff;
-}
-img {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 5;
 }
 </style>
