@@ -1,5 +1,5 @@
 <template>
-  <Tab-bar>
+  <Tab-bar class='Tab_bar'>
     <!-- path,activeColor作为属性参数传入子组件中 -->
     <tab-baritem path="/home" activeColor="deeppink">
       <img slot="item-img" src="~assets/img/tabbar/home.svg" />
@@ -38,5 +38,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  .Tab_bar{
+    position: relative;
+    z-index: 7;
+  }
 </style>
