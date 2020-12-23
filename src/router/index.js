@@ -5,8 +5,8 @@ const Home = () =>
     import ('views/Home/Home.vue')
 const Classifty = () =>
     import ('views/Classifty/Classifty.vue')
-const Find = () =>
-    import ('views/Find/Find.vue')
+const Cart = () =>
+    import ('views/cart/Cart.vue')
 const Mine = () =>
     import ('views/Mine/Mine.vue')
 
@@ -31,8 +31,8 @@ const routes = [{
         component: Classifty
     },
     {
-        path: '/find',
-        component: Find
+        path: '/cart',
+        component: Cart
     },
     {
         path: '/mine',

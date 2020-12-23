@@ -4,16 +4,18 @@
     <nav-bar>
       <div slot="center">购物街</div>
     </nav-bar>
-    <!-- banner区域 -->
-    <home-swiper :banners="banners" />
-    <!-- 圆框图区 -->
-    <recommend-view :recommends="recommends" />
-    <!-- 本周流行 -->
-    <featureView />
-    <!-- 选择控制 -->
-    <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
-    <!-- 商品展示 -->
-    <goods-list :goods="goods[currenttype].list"></goods-list>
+    <scroll class='warpper'>
+      <!-- banner区域 -->
+      <home-swiper :banners="banners" />
+      <!-- 圆框图区 -->
+      <recommend-view :recommends="recommends" />
+      <!-- 本周流行 -->
+      <featureView />
+      <!-- 选择控制 -->
+      <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+      <!-- 商品展示 -->
+      <goods-list :goods="goods[currenttype].list" :good='true'></goods-list>
+    </scroll>
   </div>
 </template> 
 
@@ -21,6 +23,7 @@
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
+import scroll from 'components/common/better-scroll/Scroll';
 
 import homeSwiper from "views/Home/childComps/homeSwiper";
 import recommendView from "./childComps/recommendView";
@@ -37,7 +40,8 @@ export default {
     GoodsList,
     homeSwiper,
     recommendView,
-    featureView
+    featureView,
+    scroll,
   },
   data() {
     return {
@@ -51,7 +55,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currenttype:'pop'
+      currenttype: "pop"
     };
   },
 
@@ -107,4 +111,26 @@ export default {
   padding-top: 44px;
   /* padding-bottom: 600px; */
 }
+.nav_bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+.tab_control {
+  position: sticky;
+  top: 44px;
+  left: 0;
+  z-index: 4;
+}
+.warpper{
+  touch-action: none;
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+}
+
 </style>

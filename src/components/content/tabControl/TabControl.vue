@@ -39,9 +39,6 @@ export default {
 
 <style scoped>
 .tab_control {
-  position: sticky;
-  top: 44px;
-  z-index: 4;
   display: flex;
   text-align: center;
   font-size: 14px;

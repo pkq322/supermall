@@ -11,10 +11,10 @@
       <img slot="item-img-active" src="~assets/img/tabbar/category_active.svg" />
       <div slot="item-text">分类</div>
     </tab-baritem>
-    <tab-baritem path="/find" activeColor="deeppink">
+    <tab-baritem path="/cart" activeColor="deeppink">
       <img slot="item-img" src="~assets/img/tabbar/shopcart.svg" />
       <img slot="item-img-active" src="~assets/img/tabbar/shopcart_active.svg" />
-      <div slot="item-text">发现</div>
+      <div slot="item-text">购物车</div>
     </tab-baritem>
     <tab-baritem path="/mine" activeColor="deeppink">
       <img slot="item-img" src="~assets/img/tabbar/profile.svg" />
