@@ -4,7 +4,7 @@
     <nav-bar>
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class='warpper'>
+    <scroll class="warpper" ref="scroll" :probe-type='3' @scroll='contentscroll'>
       <!-- banner区域 -->
       <home-swiper :banners="banners" />
       <!-- 圆框图区 -->
@@ -14,8 +14,10 @@
       <!-- 选择控制 -->
       <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
       <!-- 商品展示 -->
-      <goods-list :goods="goods[currenttype].list" :good='true'></goods-list>
+      <goods-list :goods="goods[currenttype].list" :good="true"></goods-list>
     </scroll>
+    <backtop @click.native="backclick" v-show='isshowbacktop' />
+    <!-- .native监听组件的点击事件 -->
   </div>
 </template> 
 
@@ -23,7 +25,8 @@
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
-import scroll from 'components/common/better-scroll/Scroll';
+import scroll from "components/common/better-scroll/Scroll";
+import backtop from "components/content/backTop/BackTop";
 
 import homeSwiper from "views/Home/childComps/homeSwiper";
 import recommendView from "./childComps/recommendView";
@@ -38,10 +41,11 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
+    scroll,
+    backtop,
     homeSwiper,
     recommendView,
-    featureView,
-    scroll,
+    featureView
   },
   data() {
     return {
@@ -55,7 +59,9 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currenttype: "pop"
+      currenttype: "pop",
+      // 显示隐藏按钮的默认值
+      isshowbacktop:false
     };
   },
 
@@ -63,7 +69,7 @@ export default {
   created() {
     //1.请求多个数据
     this.getHomeMultidata();
-    //2. 请求商品数据
+    //2.请求商品数据
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
@@ -84,6 +90,20 @@ export default {
           break;
       }
     },
+
+    // 回到顶部
+    backclick() {
+      // 获取better-scroll中的scroll，在使用To属性，回到顶部
+      //0,0是x和y值 500是时长
+      this.$refs.scroll.scroll.scrollTo(0, 0, 500);
+    },
+
+    // 在home页监听滚动的位置
+    contentscroll(position){
+      // 大于500时为true，显示返回按钮，反之则不显示
+       this.isshowbacktop = (-position.y) > 500
+    },
+
 
     // 网络请求的方法
     getHomeMultidata() {
@@ -109,7 +129,6 @@ export default {
 <style scoped>
 #home {
   padding-top: 44px;
-  /* padding-bottom: 600px; */
 }
 .nav_bar {
   position: fixed;
@@ -123,7 +142,7 @@ export default {
   left: 0;
   z-index: 4;
 }
-.warpper{
+.warpper {
   touch-action: none;
   overflow: hidden;
   position: absolute;
@@ -132,5 +151,4 @@ export default {
   left: 0;
   right: 0;
 }
-
 </style>
