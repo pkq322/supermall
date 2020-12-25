@@ -8,6 +8,8 @@ Vue.use(Swipe);
 Vue.use(SwipeItem);
 
 Vue.config.productionTip = false
+// 总线机制加入一个原型$bus
+Vue.prototype.$bus = new Vue()
 
 new Vue({
     store,

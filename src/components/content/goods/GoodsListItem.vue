@@ -1,9 +1,9 @@
 <template>
   <div class="goods_item">
-    <img :src="goodsItem.show.img" alt />
+    <img :src="goodsItem.show.img" @load="imageload"/>
     <div class="goods_text">
       <p>{{goodsItem.title}}</p>
-      <span class="price">{{goodsItem.price}}</span>
+      <span class="price">￥{{goodsItem.price}}</span>
       <span class="cfav">{{goodsItem.cfav}}</span>
     </div>
   </div>
@@ -19,7 +19,14 @@ export default {
         return [];
       }
     }
-  }
+  },
+  methods: {
+    // @load是加载完成时刷新事件
+    imageload(){
+      // $bus总线机制
+      this.$bus.$emit('itemimageload')
+    }
+  },
 };
 </script>
 
