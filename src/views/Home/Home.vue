@@ -10,8 +10,8 @@
       :titles="['流行','新款','精选']"
       @tabClick="tabClick"
       ref="tabcontrol"
-      calss="tab_control"
-      v-show='isTabFixed'
+      class="tab_control"
+      v-show="isTabFixed"
     ></tab-control>
 
     <!-- scroll框架的组件 -->
@@ -36,6 +36,7 @@
     </scroll>
 
     <backtop @click.native="backclick" v-show="isshowbacktop" />
+
     <!-- .native监听组件的点击事件 -->
   </div>
 </template> 
@@ -83,32 +84,40 @@ export default {
       isshowbacktop: false,
       // 滑动位置固定tabcontrol，设一个默认值
       tabcontrol: 0,
-      isTabFixed:false
-    };
+      isTabFixed: false,
+      saveY: 0
+    }
   },
+    activated() {
+      this.$refs.scroll.scrollTo(0, this.saveY, 0);
+      this.$refs.scroll.refresh()
+    },
 
-  // 生命周期函数，组件创建时
-  created() {
-    //1.请求多个数据
-    this.getHomeMultidata();
-    //2.请求商品数据
-    this.getHomeGoods("pop");
-    this.getHomeGoods("new");
-    this.getHomeGoods("sell");
-  },
+    deactivated() {
+      this.saveY = this.$refs.scroll.getScrollY()
+    },
 
-  mounted() {
-    // 1.监听item中图片加载完成(加入防抖函数的使用)
-    const refresh = this.debounce(this.$refs.scroll.refresh, 200);
-    // 总线机制的使用$on
-    this.$bus.$on("itemimageload", () => {
-      refresh();
-    });
+    // 生命周期函数，组件创建时
+    created() {
+      //1.请求多个数据
+      this.getHomeMultidata();
+      //2.请求商品数据
+      this.getHomeGoods("pop");
+      this.getHomeGoods("new");
+      this.getHomeGoods("sell");
+    },
 
-    // 2.获取tabcontrol的offsettop的值
-    // 所有的组件都有一个$el，用来获取组件的元素
-  },
+    mounted() {
+      // 1.监听item中图片加载完成(加入防抖函数的使用)
+      const refresh = this.debounce(this.$refs.scroll.refresh, 200);
+      // 总线机制的使用$on
+      this.$bus.$on("itemimageload", () => {
+        refresh();
+      });
 
+      // 2.获取tabcontrol的offsettop的值
+      // 所有的组件都有一个$el，用来获取组件的元素
+    },
   methods: {
     //事件监听的方法
 
@@ -135,8 +144,8 @@ export default {
           this.currenttype = "sell";
           break;
       }
-      this.$refs.tabcontrol.currentindex = index
-      this.$refs.tabcontrol2.currentindex = index
+      this.$refs.tabcontrol.currentindex = index;
+      this.$refs.tabcontrol2.currentindex = index;
     },
 
     // 回到顶部
@@ -195,12 +204,10 @@ export default {
   padding-top: 44px;
 } */
 /* 在使用浏览器原生滚动时为了实现不和一起滚动时所用 */
-/* .nav_bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5;
-} */
+.nav_bar {
+  color: #fff;
+  background-color: var(--color-tint);
+}
 .warpper {
   touch-action: none;
   overflow: hidden;

@@ -58,12 +58,15 @@ export default {
     },
     // scroll中的回调函数，可以做到页面下拉加载新的内容
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
     },
     // scroll中的回调函数，会重新计算页面，并刷新
     refresh() {
       this.scroll && this.scroll.refresh();
       console.log("重新计算");
+    },
+    getScrollY(){
+      return this.scroll ? this.scroll.y : 0
     }
   }
 };
